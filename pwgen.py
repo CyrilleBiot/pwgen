@@ -19,7 +19,7 @@ class MyWindow(Gtk.Window):
             "spec": ("True")
         }
 
-        Gtk.Window.__init__(self, title="CheckButton Example", application=app)
+        Gtk.Window.__init__(self, title="Password Generator", application=app)
         self.set_default_size(300, 300)
         self.set_border_width(10)
 
