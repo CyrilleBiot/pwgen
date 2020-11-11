@@ -24,22 +24,16 @@ class MyWindow(Gtk.Window):
         self.set_border_width(10)
 
 
-        # create a label
+        # Crée le label
         self.label = Gtk.Label()
-        # set the text of the label
         self.label.set_text("Ici le password")
         self.label.set_name('labelMdp')
 
-
-
-
+        # Cree le GRID
         main_layout = Gtk.Grid()
         main_layout.set_column_spacing(6)
         main_layout.set_row_spacing(6)
         main_layout.set_row_homogeneous(True)
-
-
-
 
 
 
@@ -77,6 +71,7 @@ class MyWindow(Gtk.Window):
         main_layout.attach(buttonSpec, 0, 3, 1, 1)
         main_layout.attach(self.label,0,4,1,1)
 
+        # Affiche le GRID
         self.add(main_layout)
 
 
