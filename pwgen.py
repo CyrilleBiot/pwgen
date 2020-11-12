@@ -185,7 +185,7 @@ class MyWindow(Gtk.Window):
     # CALLBACK POUR LE SCROLL
     def scale_moved(self, event):
         # Synchronisation du label
-        self.labelScale.set_text("Horizontal : Valeur de " + str(int(self.h_scale.get_value())) + ".")
+        self.labelScale.set_text("Longueur password : Valeur de " + str(int(self.h_scale.get_value())) + ".")
         # Synchronisation du mot de passe
         self.pwdgen()
 
