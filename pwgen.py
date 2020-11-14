@@ -18,12 +18,10 @@ __email__ = "cyrille@cbiot.fr"
 __status__ = "Devel"
 """
 
-
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GdkPixbuf
 import sys, subprocess
-
 
 class MyWindow(Gtk.Window):
 
@@ -33,7 +31,7 @@ class MyWindow(Gtk.Window):
         # Création d'un dictionnaire recueillant les arguments passés à pwgen
         self.dictAttributs = {
             "maj": ("True"),
-            "min": ("True"),
+            "min": ("False"),
             "chif": ("True"),
             "spec": ("True")
         }
@@ -44,16 +42,17 @@ class MyWindow(Gtk.Window):
         self.set_border_width(10)
 
         # Qq ajustements
-        ad1 = Gtk.Adjustment(0, 0, 100, 5, 10, 0)
+        ad1 = Gtk.Adjustment(0, 0, 50, 5, 10, 0)
 
+        # Presse papier
+        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
 
         # Label pour le mot de passe
-        self.label = Gtk.Label()
+        self.label = Gtk.Entry()
         # set the text of the label
         self.label.set_text("Ici le password")
+        self.label.set_editable(False)
         self.label.set_name('labelMdp')
-
-
 
         # SCALE horizontal
         self.h_scale = Gtk.Scale(
@@ -99,7 +98,7 @@ class MyWindow(Gtk.Window):
 
         # Par défaut, tous les boutons sont actifs
         buttonMaj.set_active(True)
-        buttonMin.set_active(True)
+        buttonMin.set_active(False)
         buttonChif.set_active(True)
         buttonSpec.set_active(True)
 
@@ -109,18 +108,30 @@ class MyWindow(Gtk.Window):
         # SIGNAL SUR FCT
         buttonAbout.connect("clicked", self.cliquer_sur_bouton_a_propos)
 
+        # Bouton COPIER
+        button_copy_text = Gtk.Button(label="Vers le Presse Papier")
+
+        # SIGNAL SUR LE BOUTON
+        button_copy_text.connect("clicked", self.copier_texte)
+
         # Creation d'une grille
         grid.attach(buttonMaj, 0, 0, 1, 1)
         grid.attach(buttonMin, 0, 1, 1, 1)
         grid.attach(buttonAbout,1,0,2,1)
         grid.attach(buttonChif, 0, 2, 1, 1)
-        grid.attach(buttonSpec, 0, 3, 1, 1)
-        grid.attach(self.h_scale, 0, 4, 1, 1)
+        grid.attach(buttonSpec, 0, 3, 2, 1)
+        grid.attach(button_copy_text,1,2,1,1)
+        grid.attach(self.h_scale, 0, 4, 2, 1)
         grid.attach(self.labelScale, 0, 5, 2, 1)
-        grid.attach(self.label,0,7,1,1)
+        grid.attach(self.label,0,7,2,1)
 
         # On ajoute tout cela à la windows
         self.add(grid)
+
+    # Fonction COPIER
+    def copier_texte(self, widget):
+        print((self.label.get_text()))
+        self.clipboard.set_text(self.label.get_text(), -1)
 
     def cliquer_sur_bouton_a_propos(self, widget):
         """
@@ -180,7 +191,6 @@ class MyWindow(Gtk.Window):
         :return:
         """
         self.dialog.destroy()
-        self.notebook.set_current_page(0)
 
     # CALLBACK POUR LE SCROLL
     def scale_moved(self, event):
