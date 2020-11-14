@@ -12,5 +12,5 @@ sys, subprocess
 # apt install pwgen
 ```
 
-![screenshoot](https://cbiot.fr/site/pygen.png)
+![screenshoot](https://cbiot.fr/site/pwgen.png)
 
