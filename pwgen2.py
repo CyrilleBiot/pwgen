@@ -11,7 +11,7 @@ __author__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
-__version__ = "0.1"
+__version__ = "2.0"
 __date__ = "2020/11/10"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
@@ -133,7 +133,6 @@ class MyWindow(Gtk.Window):
         :return:
         """
         # Recuperation n° de version
-        print(__doc__)
         lignes = __doc__.split("\n")
         for l in lignes:
             if '__version__' in l:
@@ -238,7 +237,7 @@ class MyWindow(Gtk.Window):
         # Genere et synchronise le mot de passe
         mot_de_passe = ''.join(choice(modele) for i in range(int(e)))
         self.label.set_text(str(mot_de_passe))
-        print(mot_de_passe)
+        #print(mot_de_passe)
 
 class MyApplication(Gtk.Application):
 
