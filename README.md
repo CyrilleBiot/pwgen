@@ -17,7 +17,7 @@ Meilleure gestion des labels
 
 ### Nécessite les modules python
 Gtk, Gdk, GdkPixbuf
-sys, random (choix), string
+sys, random (choice), string
 
 ### Screenshoot
 
