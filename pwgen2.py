@@ -12,7 +12,7 @@ __copyright__ = "Copyleft"
 __credits__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __license__ = "GPL"
 __version__ = "2.0"
-__date__ = "2020/11/15"
+__date__ = "2020/11/10"
 __maintainer__ = "Cyrille BIOT <cyrille@cbiot.fr>"
 __email__ = "cyrille@cbiot.fr"
 __status__ = "Devel"
@@ -35,7 +35,7 @@ class MyWindow(Gtk.Window):
         self.set_border_width(10)
 
         # Qq ajustements
-        ad1 = Gtk.Adjustment(0, 0, 50, 5, 10, 0)
+        ad1 = Gtk.Adjustment(value=0, lower=0, upper=50, step_increment=5, page_increment=10, page_size=0)
 
         # Presse papier
         self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
@@ -96,7 +96,7 @@ class MyWindow(Gtk.Window):
         self.buttonSpec.set_active(True)
 
         # Bouton A PROPOS
-        buttonAbout = Gtk.Button("A PROPOS")
+        buttonAbout = Gtk.Button(label= "A PROPOS")
 
         # SIGNAL SUR FCT
         buttonAbout.connect("clicked", self.cliquer_sur_bouton_a_propos)
@@ -251,6 +251,17 @@ class MyApplication(Gtk.Application):
     def do_startup(self):
         Gtk.Application.do_startup(self)
 
+    def gtk_style(self):
+        style_provider = Gtk.CssProvider()
+        style_provider.load_from_path('pwgen.css')
+
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            style_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+
 app = MyApplication()
+app.gtk_style()
 exit_status = app.run(sys.argv)
 sys.exit(exit_status)
