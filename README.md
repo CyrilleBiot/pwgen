@@ -10,15 +10,34 @@ Excuse pour manipuler
   * aboutDialog
 
 
-## Nécessite les modules python
+## pwgen2
+Version réécrite sans appel de programme externe
+Utilisation des modules string et random.choice en alternative
+Meilleure gestion des labels
+
+### Nécessite les modules python
+Gtk, Gdk, GdkPixbuf
+sys, random (choix), string
+
+### Screenshoot
+
+![screenshoot](https://cbiot.fr/site/pwgen.png)
+
+
+
+## pwgen
+Version initiale, nécessite 
+
+### Nécessite les modules python
 Gtk, Gdk, GdkPixbuf
 sys, subprocess
 
-## Dépendances DEBIAN
+### Dépendances DEBIAN
 
 ```
 # apt install pwgen
 ```
+### Screenshoot
 
 ![screenshoot](https://cbiot.fr/site/pwgen.png)
 
