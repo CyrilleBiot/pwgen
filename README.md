@@ -8,6 +8,7 @@ Excuse pour manipuler
   * checkbutton
   * clipboard
   * aboutDialog
+  * scale
 
 
 ## pwgen2
