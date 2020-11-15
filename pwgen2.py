@@ -54,12 +54,10 @@ class MyWindow(Gtk.Window):
 
         # LABEL DU SCALE
         self.labelScale = Gtk.Label()
-        self.labelScale.set_text("Déplacer le curseur et générer un mdp...")
 
         # Label pour le mot de passe
         self.label = Gtk.Entry()
-        # set the text of the label
-        self.label.set_text("Ici le password")
+        self.label.set_text("Bouger le scale pour générer un mot de passe")
         self.label.set_editable(False)
         self.label.set_name('labelMdp')
 
@@ -70,23 +68,19 @@ class MyWindow(Gtk.Window):
         grid.set_row_homogeneous(True)
 
         # Checkbutton Majuscules
-        self.buttonMaj = Gtk.CheckButton()
-        self.buttonMaj.set_label("Majuscules")
+        self.buttonMaj = Gtk.CheckButton(label="Majuscules")
         self.buttonMaj.connect("toggled", self.toggled_cb, "maj")
 
         # Checkbutton Minuscules
-        self.buttonMin = Gtk.CheckButton()
-        self.buttonMin.set_label("Minuscules")
+        self.buttonMin = Gtk.CheckButton(label="Minuscules")
         self.buttonMin.connect("toggled", self.toggled_cb, "min")
 
         # Checkbutton Chiffres
-        self.buttonChif = Gtk.CheckButton()
-        self.buttonChif.set_label("Chiffres")
+        self.buttonChif = Gtk.CheckButton(label="Chiffres")
         self.buttonChif.connect("toggled", self.toggled_cb, "chif")
 
         # Checkbutton Speciaux
-        self.buttonSpec = Gtk.CheckButton()
-        self.buttonSpec.set_label("Speciaux")
+        self.buttonSpec = Gtk.CheckButton(label="Speciaux")
         self.buttonSpec.connect("toggled", self.toggled_cb, "spec")
 
         # Par défaut, tous les boutons sont actifs
@@ -188,7 +182,6 @@ class MyWindow(Gtk.Window):
     def scale_moved(self, event):
         # Synchronisation du label
         self.labelScale.set_text("Longueur password : Valeur de " + str(int(self.h_scale.get_value())) + ".")
-
         self.label.set_width_chars(self.h_scale.get_value() + 2)
 
         # Synchronisation du mot de passe
@@ -215,29 +208,34 @@ class MyWindow(Gtk.Window):
         b = 1 if self.buttonMin.get_active() else 0
         c = 1 if self.buttonChif.get_active() else 0
         d = 1 if self.buttonSpec.get_active() else 0
-        e = str(int(self.h_scale.get_value()))
+        e = int(self.h_scale.get_value())
 
-        # SI aucun paramètre
-        if bool(a) is False and bool(b) is False and bool(c) is False and bool(d) is False:
-            self.labelScale.set_text("Cocher au moins un case")
+        # Passe de MDP (longueur non définie)
+        if e == 0:
+            self.label.set_text('Déplacer le curseur...')
         else:
-            self.labelScale.set_text("Longueur password : Valeur de " + str(int(self.h_scale.get_value())) + ".")
+            # SI aucun paramètre
+            if bool(a) is False and bool(b) is False and bool(c) is False and bool(d) is False:
+                self.labelScale.set_text("Cocher au moins un case")
 
-        # Gestion des paramètres
-        modele = ''
-        if bool(a) is True:
-            modele = modele + string.ascii_uppercase
-        if bool(b) is True:
-            modele = modele + string.ascii_lowercase
-        if bool(c) is True:
-            modele = modele + string.digits
-        if bool(d) is True:
-            modele = modele + string.punctuation
+            # Lg mdp > 0, on crée le mdp
+            else:
+                self.labelScale.set_text("Longueur password : Valeur de " + str(int(self.h_scale.get_value())) + ".")
 
-        # Genere et synchronise le mot de passe
-        mot_de_passe = ''.join(choice(modele) for i in range(int(e)))
-        self.label.set_text(str(mot_de_passe))
-        #print(mot_de_passe)
+                # Gestion des paramètres
+                modele = ''
+                if bool(a) is True:
+                    modele = modele + string.ascii_uppercase
+                if bool(b) is True:
+                    modele = modele + string.ascii_lowercase
+                if bool(c) is True:
+                    modele = modele + string.digits
+                if bool(d) is True:
+                    modele = modele + string.punctuation
+
+                # Genere et synchronise le mot de passe
+                mot_de_passe = ''.join(choice(modele) for i in range(int(e)))
+                self.label.set_text(str(mot_de_passe))
 
 class MyApplication(Gtk.Application):
 
