@@ -21,7 +21,7 @@ sys, random (choix), string
 
 ### Screenshoot
 
-![screenshoot](https://cbiot.fr/site/pwgen.png)
+![screenshoot](https://cbiot.fr/site/pwgen2.png)
 
 
 
